@@ -1,0 +1,3 @@
+Fullstack Developer with 3.5+ years of experience building scalable web applications.
+Experience across FinTech, AdTech, and healthcare domains.
+Skilled in .NET, React, Vue.js, REST API, GraphQL, SQL, and integrating AI-driven product features.
