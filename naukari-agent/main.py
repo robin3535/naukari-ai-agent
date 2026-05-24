@@ -7,7 +7,7 @@ from ai.headline_generator import generate_headline_from_env
 from auth.auth_manager import AuthManager
 from auth.naukri_login import NaukriLogin
 from browser.playwright_manager import BrowserManager
-from logs.logger_config import setup_logger
+from app_logging.logger_config import setup_logger
 from tools.profile_headline_tool import (
     ProfileHeadlineTool
 )

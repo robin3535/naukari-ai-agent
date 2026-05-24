@@ -3,7 +3,7 @@ import re
 from playwright.sync_api import Page
 
 from auth.base_login import BaseLogin
-from logs.logger_config import setup_logger
+from app_logging.logger_config import setup_logger
 
 
 logger = setup_logger()

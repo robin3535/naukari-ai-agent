@@ -2,7 +2,7 @@ from pathlib import Path
 
 from playwright.sync_api import Page, TimeoutError
 
-from logs.logger_config import setup_logger
+from app_logging.logger_config import setup_logger
 
 
 logger = setup_logger()

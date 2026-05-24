@@ -10,7 +10,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
-from logs.logger_config import setup_logger
+from app_logging.logger_config import setup_logger
 
 
 logger = setup_logger()

@@ -4,7 +4,7 @@ from ai.headline_generator import (
     ResumeHeadlineGenerator,
     load_headline_inputs_from_env,
 )
-from logs.logger_config import setup_logger
+from app_logging.logger_config import setup_logger
 
 
 load_dotenv()
