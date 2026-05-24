@@ -1,4 +1,6 @@
 from pathlib import Path
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from playwright.sync_api import Page, TimeoutError
 
@@ -15,6 +17,8 @@ class ProfileHeadlineTool:
     """
 
     PROFILE_URL = "https://www.naukri.com/mnjuser/profile"
+    MAX_HEADLINE_LENGTH = 250
+    TIMEZONE = ZoneInfo("Asia/Kolkata")
 
     def open_profile(
         self,
@@ -59,6 +63,8 @@ class ProfileHeadlineTool:
             if not headline:
                 raise TimeoutError("Could not read headline text")
 
+            self._prepare_headline_widget(page)
+
             edit_control = self._find_headline_edit_control(page)
             if not edit_control:
                 raise TimeoutError("Could not find headline edit control")
@@ -76,7 +82,7 @@ class ProfileHeadlineTool:
             self._set_headline_value(
                 page=page,
                 locator=headline_input,
-                value=self._ensure_terminal_punctuation(headline)
+                value=self._format_headline(headline)
             )
 
             save_button = self._find_dialog_save_button(dialog)
@@ -115,18 +121,74 @@ class ProfileHeadlineTool:
             '.widgetHead:has-text("Resume headline") .edit',
             '.widgetHead:has-text("Profile headline") .edit.icon',
             '.widgetHead:has-text("Profile headline") .edit',
+            'xpath=//*[contains(@class, "widgetHead")][.//*[normalize-space()="Resume headline"]]//*[contains(@class, "edit")]',
+            'xpath=//*[contains(@class, "widgetHead")][contains(normalize-space(), "Resume headline")]//*[contains(@class, "edit")]',
+            'xpath=//*[normalize-space()="Resume headline"]/ancestor::*[contains(@class, "widgetHead")]//*[contains(@class, "edit")]',
+            'xpath=//*[normalize-space()="Resume headline"]/following-sibling::*[contains(@class, "edit")]',
+            'xpath=//*[contains(normalize-space(), "Resume headline")]/following::*[contains(@class, "edit")][1]',
+            'xpath=//*[contains(@class, "widgetTitle")][normalize-space()="Resume headline"]/../*[contains(@class, "edit")]',
+            'span.edit.icon:has-text("editOneTheme")',
         ]
 
         for selector in selectors:
             try:
                 locator = page.locator(selector).first
-                locator.wait_for(timeout=3000)
+                locator.wait_for(timeout=7000)
                 logger.info(f"Found headline edit control with selector: {selector}")
                 return locator
             except Exception as error:
                 logger.debug(f"Headline edit selector failed: {selector} | {error}")
 
+        self._log_headline_dom(page)
         return None
+
+    def _prepare_headline_widget(
+        self,
+        page: Page
+    ) -> None:
+        selectors = [
+            'text="Resume headline"',
+            '.widgetHead:has-text("Resume headline")',
+            'xpath=//*[normalize-space()="Resume headline"]',
+            'xpath=//*[contains(normalize-space(), "Resume headline")]',
+        ]
+
+        for selector in selectors:
+            try:
+                locator = page.locator(selector).first
+                locator.wait_for(timeout=10000)
+                locator.scroll_into_view_if_needed(timeout=5000)
+                page.wait_for_timeout(1000)
+                logger.info(f"Prepared headline widget with selector: {selector}")
+                return
+            except Exception as error:
+                logger.debug(f"Headline widget prepare failed: {selector} | {error}")
+
+        page.evaluate("window.scrollTo(0, document.body.scrollHeight / 3)")
+        page.wait_for_timeout(1500)
+        page.screenshot(path="screenshots/headline_widget_not_found.png")
+
+    def _log_headline_dom(
+        self,
+        page: Page
+    ) -> None:
+        try:
+            snippets = page.locator(
+                'xpath=//*[contains(normalize-space(), "Resume headline")]'
+            ).evaluate_all(
+                """
+                elements => elements.slice(0, 5).map(element => {
+                    const container = element.closest(".widgetHead")
+                        || element.closest("section")
+                        || element.closest("div")
+                        || element;
+                    return container.outerHTML.slice(0, 1000);
+                })
+                """
+            )
+            logger.error(f"Resume headline DOM snippets: {snippets}")
+        except Exception as error:
+            logger.error(f"Could not capture headline DOM snippet: {error}")
 
     def _get_current_headline(
         self,
@@ -137,12 +199,16 @@ class ProfileHeadlineTool:
             '.widgetHead:has-text("Resume headline") + .widgetCont .prefill',
             '.widgetHead:has-text("Profile headline") + .widgetCont .prefill div',
             '.widgetHead:has-text("Profile headline") + .widgetCont .prefill',
+            'xpath=//*[contains(@class, "widgetHead")][.//*[normalize-space()="Resume headline"]]/following-sibling::*[contains(@class, "widgetCont")]//*[contains(@class, "prefill")]//div',
+            'xpath=//*[contains(@class, "widgetHead")][.//*[normalize-space()="Resume headline"]]/following-sibling::*[contains(@class, "widgetCont")]//*[contains(@class, "prefill")]',
+            'xpath=//*[contains(@class, "widgetHead")][.//*[normalize-space()="Profile headline"]]/following-sibling::*[contains(@class, "widgetCont")]//*[contains(@class, "prefill")]//div',
+            'xpath=//*[contains(@class, "widgetHead")][.//*[normalize-space()="Profile headline"]]/following-sibling::*[contains(@class, "widgetCont")]//*[contains(@class, "prefill")]',
         ]
 
         for selector in selectors:
             try:
                 locator = page.locator(selector).first
-                locator.wait_for(timeout=3000)
+                locator.wait_for(timeout=7000)
                 headline = locator.inner_text().strip()
                 if headline:
                     logger.info("Using current headline from profile page")
@@ -258,3 +324,20 @@ class ProfileHeadlineTool:
             return headline
 
         return f"{headline}."
+
+    def _format_headline(
+        self,
+        headline: str
+    ) -> str:
+        timestamp = datetime.now(self.TIMEZONE).strftime(
+            "%d %b %I:%M %p IST"
+        )
+        suffix = f" | {timestamp}"
+        headline = self._ensure_terminal_punctuation(headline)
+
+        max_base_length = self.MAX_HEADLINE_LENGTH - len(suffix)
+        if len(headline) > max_base_length:
+            headline = headline[: max_base_length - 3].rstrip()
+            headline = self._ensure_terminal_punctuation(f"{headline}...")
+
+        return f"{headline}{suffix}"

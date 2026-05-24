@@ -68,6 +68,15 @@ class HeadlineResponseParser:
             if match:
                 cleaned = match.group(1).strip()
 
+        if not cleaned.startswith("{"):
+            match = re.search(
+                r"\{.*\}",
+                cleaned,
+                re.DOTALL
+            )
+            if match:
+                cleaned = match.group(0)
+
         payload = json.loads(cleaned)
 
         headline = str(payload["headline"]).strip()

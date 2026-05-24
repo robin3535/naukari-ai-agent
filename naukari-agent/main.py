@@ -1,5 +1,6 @@
 
 import os
+import sys
 
 from dotenv import load_dotenv
 
@@ -36,6 +37,16 @@ def get_headline_input() -> str | None:
     return None
 
 
+def log_runtime_config() -> None:
+    logger.info(
+        "Runtime config: "
+        f"OPENAI_API_KEY={bool(os.getenv('OPENAI_API_KEY'))}, "
+        f"GEMINI_API_KEY={bool(os.getenv('GEMINI_API_KEY'))}, "
+        f"NAUKRI_HEADLINE={bool(os.getenv('NAUKRI_HEADLINE'))}, "
+        f"HEADLESS={should_run_headless()}"
+    )
+
+
 def is_logged_in(page) -> bool:
     """
     Basic authentication validation.
@@ -53,12 +64,14 @@ def is_logged_in(page) -> bool:
 def main() -> None:
 
     logger.info("Starting Naukri agent")
+    log_runtime_config()
 
-    browser_manager = BrowserManager(
-        headless=should_run_headless()
-    )
+    browser_manager = None
 
     try:
+        browser_manager = BrowserManager(
+            headless=should_run_headless()
+        )
 
         page = browser_manager.page
 
@@ -131,6 +144,12 @@ def main() -> None:
         generated_headline = generate_headline_from_env()
         headline = generated_headline or get_headline_input()
 
+        if not headline:
+            raise ValueError(
+                "No headline source configured. Set GEMINI_API_KEY for AI generation "
+                "or set NAUKRI_HEADLINE as fallback in Railway Variables."
+            )
+
         headline_success = headline_tool.update_headline(
             page=page,
             headline=headline
@@ -140,6 +159,7 @@ def main() -> None:
             logger.info("Headline update succeeded")
         else:
             logger.error("Headline update failed")
+            raise RuntimeError("Headline update failed")
 
         page.wait_for_timeout(5000)
 
@@ -148,12 +168,14 @@ def main() -> None:
         logger.exception(
             f"Application failed: {error}"
         )
+        sys.exit(1)
 
     finally:
 
         logger.info("Closing browser")
 
-        browser_manager.close()
+        if browser_manager:
+            browser_manager.close()
 
 
 if __name__ == "__main__":

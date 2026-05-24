@@ -2,11 +2,9 @@
 venv/
 __pycache__/
 *.py[cod]
-.git/
 .DS_Store
+logs/*.log
 naukari-agent/logs/*.log
-naukari-agent/screenshots/
+naukari-agent/screenshots/*.png
 naukari-agent/storage/
 naukari-agent/outputs/
-naukari-agent/__pycache__/
-naukari-agent/**/__pycache__/

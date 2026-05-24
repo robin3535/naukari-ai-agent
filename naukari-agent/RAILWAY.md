@@ -38,11 +38,18 @@ python main.py
 
 In Railway service settings, set a cron schedule. Railway cron schedules use UTC.
 
-Example: run every day at 9:00 AM India time:
+Example: run every day at 9:00 AM, 12:00 PM, 2:00 PM, and 7:00 PM India time:
 
 ```cron
-30 3 * * *
+30 3,6,8,13 * * *
 ```
+
+This is UTC, which maps to IST as:
+
+- `03:30 UTC` -> `09:00 IST`
+- `06:30 UTC` -> `12:00 IST`
+- `08:30 UTC` -> `14:00 IST`
+- `13:30 UTC` -> `19:00 IST`
 
 ## Notes
 
