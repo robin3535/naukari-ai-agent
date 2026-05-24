@@ -37,9 +37,9 @@ cat > "$PLIST_PATH" <<PLIST
     </dict>
     <dict>
       <key>Hour</key>
-      <integer>13</integer>
+      <integer>14</integer>
       <key>Minute</key>
-      <integer>34</integer>
+      <integer>0</integer>
     </dict>
     <dict>
       <key>Hour</key>
