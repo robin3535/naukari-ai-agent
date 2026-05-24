@@ -63,7 +63,8 @@ class ProfileHeadlineTool:
             if not headline:
                 raise TimeoutError("Could not read headline text")
 
-            self._prepare_headline_widget(page)
+            if not self._prepare_headline_widget(page):
+                raise TimeoutError("Resume headline widget not found on profile page")
 
             edit_control = self._find_headline_edit_control(page)
             if not edit_control:
@@ -145,12 +146,16 @@ class ProfileHeadlineTool:
     def _prepare_headline_widget(
         self,
         page: Page
-    ) -> None:
+    ) -> bool:
         selectors = [
             'text="Resume headline"',
+            'text="Profile headline"',
             '.widgetHead:has-text("Resume headline")',
+            '.widgetHead:has-text("Profile headline")',
             'xpath=//*[normalize-space()="Resume headline"]',
+            'xpath=//*[normalize-space()="Profile headline"]',
             'xpath=//*[contains(normalize-space(), "Resume headline")]',
+            'xpath=//*[contains(normalize-space(), "Profile headline")]',
         ]
 
         for selector in selectors:
@@ -160,13 +165,15 @@ class ProfileHeadlineTool:
                 locator.scroll_into_view_if_needed(timeout=5000)
                 page.wait_for_timeout(1000)
                 logger.info(f"Prepared headline widget with selector: {selector}")
-                return
+                return True
             except Exception as error:
                 logger.debug(f"Headline widget prepare failed: {selector} | {error}")
 
         page.evaluate("window.scrollTo(0, document.body.scrollHeight / 3)")
         page.wait_for_timeout(1500)
         page.screenshot(path="screenshots/headline_widget_not_found.png")
+        self._log_page_diagnostics(page)
+        return False
 
     def _log_headline_dom(
         self,
@@ -189,6 +196,20 @@ class ProfileHeadlineTool:
             logger.error(f"Resume headline DOM snippets: {snippets}")
         except Exception as error:
             logger.error(f"Could not capture headline DOM snippet: {error}")
+
+    def _log_page_diagnostics(
+        self,
+        page: Page
+    ) -> None:
+        try:
+            title = page.title()
+            url = page.url
+            body_text = page.locator("body").inner_text(timeout=5000)
+            logger.error(f"Profile diagnostics title: {title}")
+            logger.error(f"Profile diagnostics URL: {url}")
+            logger.error(f"Profile diagnostics body text: {body_text[:2000]}")
+        except Exception as error:
+            logger.error(f"Could not capture profile diagnostics: {error}")
 
     def _get_current_headline(
         self,
