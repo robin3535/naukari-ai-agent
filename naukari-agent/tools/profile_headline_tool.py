@@ -350,15 +350,17 @@ class ProfileHeadlineTool:
         self,
         headline: str
     ) -> str:
-        timestamp = datetime.now(self.TIMEZONE).strftime(
-            "%d %b %I:%M %p IST"
-        )
-        suffix = f" | {timestamp}"
+        # Timestamp suffix disabled so AI-generated headlines are saved as-is.
+        # timestamp = datetime.now(self.TIMEZONE).strftime(
+        #     "%d %b %I:%M %p IST"
+        # )
+        # suffix = f" | {timestamp}"
         headline = self._ensure_terminal_punctuation(headline)
 
-        max_base_length = self.MAX_HEADLINE_LENGTH - len(suffix)
-        if len(headline) > max_base_length:
-            headline = headline[: max_base_length - 3].rstrip()
+        # max_base_length = self.MAX_HEADLINE_LENGTH - len(suffix)
+        if len(headline) > self.MAX_HEADLINE_LENGTH:
+            headline = headline[: self.MAX_HEADLINE_LENGTH - 3].rstrip()
             headline = self._ensure_terminal_punctuation(f"{headline}...")
 
-        return f"{headline}{suffix}"
+        # return f"{headline}{suffix}"
+        return headline
