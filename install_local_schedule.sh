@@ -25,7 +25,13 @@ cat > "$PLIST_PATH" <<PLIST
   <array>
     <dict>
       <key>Hour</key>
-      <integer>9</integer>
+      <integer>8</integer>
+      <key>Minute</key>
+      <integer>0</integer>
+    </dict>
+    <dict>
+      <key>Hour</key>
+      <integer>10</integer>
       <key>Minute</key>
       <integer>0</integer>
     </dict>
@@ -38,12 +44,6 @@ cat > "$PLIST_PATH" <<PLIST
     <dict>
       <key>Hour</key>
       <integer>14</integer>
-      <key>Minute</key>
-      <integer>0</integer>
-    </dict>
-    <dict>
-      <key>Hour</key>
-      <integer>19</integer>
       <key>Minute</key>
       <integer>0</integer>
     </dict>
