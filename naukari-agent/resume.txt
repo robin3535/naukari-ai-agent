@@ -1,3 +1,31 @@
-Fullstack Developer with 3.5+ years of experience building scalable web applications.
-Experience across FinTech, AdTech, and healthcare domains.
-Skilled in .NET, React, Vue.js, REST API, GraphQL, SQL, and integrating AI-driven product features.
+Skills
+Languages: C++, C#, JavaScript
+Technologies & Tools: .NET Core, SQL Server, MongoDB, GraphQL, REST APIs, Vue, React, AWS (S3, SQS), Kuber-
+netes, Docker, BDD, SAP UI5, SAP MDK, Android
+Work Experience
+intelliflo, Hyderabad Jun 2024 - Present
+Advanced Software Engineer
+• Implemented pension contribution, withdrawal, and transfer features across a cashflow planning microservice and its
+associated UI application.
+• Built AI code automation workflows in VS Code using MCP servers (GitHub, Jira, Confluence), improving developer
+productivity and reducing hallucinations in generated code.
+• Implemented AI-assisted test migration using custom prompts and reusable skill sets, enabling efficient migration of
+test suites and resulting in the successful migration of 1,000+ automated test cases.
+• Set up a new RDE environment, significantly reducing local development setup time and mentoring developers during
+onboarding.
+• C#, .NET Core, React, SQL, GraphQL, Kubernetes, Docker, SQS, BDD, MCP Server, Copilot
+DeltaX, Bangalore Feb 2023 - Apr 2024
+Associate Product Engineer
+• Migrated MVC-based UI components to Vue.js and developed an Ads Report listing page with enhanced search and
+filtering features, improving user experience and report accessibility.
+• Implemented new Highcharts visualizations for the Ads Reporting application, improving data analysis and reporting
+insights.
+• Enhanced daily ads data dumping services by introducing automated failure detection and recovery mechanisms,
+reducing service failures from 100 to 10 and significantly improving service reliability.
+• C#, .NET Core, Vue, SQL, REST APIs, Vuetify, BDD
+Incture, Bangalore Jul 2022 - Jan 2023
+Associate Software Engineer
+• Played a key role in developing ePharmacy web applications using SAP UI5 (MVC architecture), introducing new
+features and mentoring junior developers.
+• Enhanced patient information tracking and streamlined the process for updating and verifying profiles.
+• Created mobile applicatio
