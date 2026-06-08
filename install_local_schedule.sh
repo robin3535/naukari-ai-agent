@@ -63,5 +63,5 @@ launchctl unload "$PLIST_PATH" 2>/dev/null || true
 launchctl load "$PLIST_PATH"
 
 echo "Installed local Naukri Agent schedule:"
-echo "8:00 AM, 10:00 PM, 12:00 PM, 2:00 PM"
+echo "8:00 AM, 10:00 AM, 12:00 AM, 2:00 PM"
 echo "$PLIST_PATH"
