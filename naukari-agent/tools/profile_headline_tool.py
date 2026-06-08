@@ -15,7 +15,7 @@ class ProfileHeadlineTool:
     """
 
     PROFILE_URL = "https://www.naukri.com/mnjuser/profile"
-    MAX_HEADLINE_LENGTH = 256
+    MAX_HEADLINE_LENGTH = 250
 
     def open_profile(
         self,
