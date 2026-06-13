@@ -1,31 +1,49 @@
+Summary
+Software Engineer with 4 years of experience designing and developing scalable web applications using C#, .NET Core,
+JavaScript, Vue, REST APIs, SQL Server and BDD. Proven track record of improving system reliability, delivering
+business-critical features, and driving engineering productivity through AI-assisted development workflows. Experienced
+with AWS, Docker, Kubernetes, microservices architecture, and Agile development practices.
 Skills
-Languages: C++, C#, JavaScript
-Technologies & Tools: .NET Core, SQL Server, MongoDB, GraphQL, REST APIs, Vue, React, AWS (S3, SQS), Kuber-
+Languages: C#, C++, JavaScript
+Technologies & Tools: .NET Core, Vue, React, SQL Server, REST APIs, MongoDB, GraphQL, AWS (S3, SQS), Kuber-
 netes, Docker, BDD, SAP UI5, SAP MDK, Android
 Work Experience
 intelliflo, Hyderabad Jun 2024 - Present
 Advanced Software Engineer
-• Implemented pension contribution, withdrawal, and transfer features across a cashflow planning microservice and its
-associated UI application.
-• Built AI code automation workflows in VS Code using MCP servers (GitHub, Jira, Confluence), improving developer
-productivity and reducing hallucinations in generated code.
-• Implemented AI-assisted test migration using custom prompts and reusable skill sets, enabling efficient migration of
-test suites and resulting in the successful migration of 1,000+ automated test cases.
-• Set up a new RDE environment, significantly reducing local development setup time and mentoring developers during
-onboarding.
-• C#, .NET Core, React, SQL, GraphQL, Kubernetes, Docker, SQS, BDD, MCP Server, Copilot
+• Implemented pension contribution, withdrawal, and transfer capabilities, and introduced new feature flags to enable
+phased regional rollouts, improving retirement planning and cashflow forecasting for financial advisers.
+• Integrated AWS SQS-based messaging to support reliable asynchronous processing and improve service scalability.
+• Built AI-powered developer workflows using MCP servers, custom skills, and prompt engineering, enhancing
+code generation quality through contextual awareness and improving engineering productivity.
+• Implemented AI-assisted test migration using custom prompts and reusable skill sets, resulting in the successful
+migration of 1,000+ automated test cases.
+• Set up a new RDE environment, reducing setup time and supporting developer onboarding.
+• Tech Stack: C#, .NET Core, React, GraphQL, REST APIs, SQL Server, MongoDB, BDD, Copilot
 DeltaX, Bangalore Feb 2023 - Apr 2024
 Associate Product Engineer
 • Migrated MVC-based UI components to Vue.js and developed an Ads Report listing page with enhanced search and
 filtering features, improving user experience and report accessibility.
-• Implemented new Highcharts visualizations for the Ads Reporting application, improving data analysis and reporting
-insights.
+• Implemented new charts for the Ads Reporting application, improving data analysis and reporting insights.
 • Enhanced daily ads data dumping services by introducing automated failure detection and recovery mechanisms,
-reducing service failures from 100 to 10 and significantly improving service reliability.
-• C#, .NET Core, Vue, SQL, REST APIs, Vuetify, BDD
+reducing daily service failures by approximately 90% (from 100+ to fewer than 10 incidents per day).
+• Tech Stack: C#, .NET Core, Vue, SQL, REST APIs, Vuetify, BDD
 Incture, Bangalore Jul 2022 - Jan 2023
 Associate Software Engineer
-• Played a key role in developing ePharmacy web applications using SAP UI5 (MVC architecture), introducing new
-features and mentoring junior developers.
-• Enhanced patient information tracking and streamlined the process for updating and verifying profiles.
-• Created mobile applicatio
+• Developed ePharmacy web applications using SAP UI5, delivering new features and guiding peers.
+• Implemented enhancements to patient and doctor profile management workflows, improving information tracking, ver-
+ification processes, and overall application usability.
+• Created mobile applications using SAP MDK and developed over 100+ mobile app screens.
+• Tech Stack: JavaScript, SAP UI5, SAP MDK
+Education
+Birla Institute of Technology, Mesra 2018 - 2022
+B.Tech in Computer Science and Engineering CGPA: 8.5/10
+Relevant Coursework: Object-Oriented Programming, Databases, Data Structures and Algorithms, Computer Networks
+Project Work
+• Naukri-AI-Agent (2026): Developed an AI-powered profile automation agent using Python, LangChain, and Play-
+wright to automate profile maintenance workflows through scheduled execution.
+• IMDB Clone (2021): Developed a full-stack movie management application using .NET Core, SQL Server, REST
+APIs, Repository Pattern, Dependency Injection, Vue.js, and BDD practices.
+Awards and Certificates
+• HackerRank Certified in Problem Solving and SQL.
+• Incture Quarterly Reward for technology adaptation and innovation.
+• Certified in Data Analytics and Machine Learning at EISystems Technologies.
